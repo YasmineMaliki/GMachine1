@@ -183,7 +183,7 @@ public class MachineService implements IDao<Machine> {
     	List<Machine> machines = new ArrayList<Machine>();
     	MarqueService ms = new MarqueService();
         try {
-            String req = "select * from jdbc.machine where dateAchat between ? and ?";
+            String req = "select * from machine where dateAchat between ? and ?";
             PreparedStatement pr =Connexion.getInstane().getConnection().prepareStatement(req);;
             pr.setDate(1, new Date(date1.getTime()));
             pr.setDate(2, new Date(date2.getTime()));
@@ -218,7 +218,7 @@ public class MachineService implements IDao<Machine> {
     	Map<String,Integer> machines = new HashMap<String,Integer>();
     	MarqueService ms = new MarqueService();
         try {
-            String req = "select libelle,count(*) from jdbc.machine a, jdbc.marque b where a.idMarque=b.id group by idMarque ";
+            String req = "select libelle,count(*) from machine a, marque b where a.idMarque=b.id group by idMarque ";
             PreparedStatement pr =Connexion.getInstane().getConnection().prepareStatement(req);
             ResultSet rs = pr.executeQuery();
             while (rs.next()) {
@@ -235,7 +235,7 @@ public class MachineService implements IDao<Machine> {
     	Map<Integer,Integer> machines = new HashMap<Integer,Integer>();
     	MarqueService ms = new MarqueService();
         try {
-            String req = " select MONTH(a.dateAchat), count(*) from jdbc.machine a, jdbc.marque b where a.idMarque=b.id and idMarque = ? group by MONTH(a.dateAchat)";
+            String req = " select MONTH(a.dateAchat), count(*) from machine a, marque b where a.idMarque=b.id and idMarque = ? group by MONTH(a.dateAchat)";
             PreparedStatement pr =Connexion.getInstane().getConnection().prepareStatement(req);
             pr.setInt(1, id);
             ResultSet rs = pr.executeQuery();
