@@ -17,7 +17,7 @@ public class MachineService implements IDao<Machine> {
 	MarqueService ms = new MarqueService();
     @Override
     public boolean create(Machine o) {
-        String sql = "insert into machine values (null, ?, ?, ?,?)";
+        String sql = "insert into machine(reference,dateachat,prix,idmarque) values ( ?, ?, ?,?)";
         try {
             PreparedStatement ps = Connexion.getInstane().getConnection().prepareStatement(sql);
             ps.setString(1, o.getReference());
@@ -135,7 +135,7 @@ public class MachineService implements IDao<Machine> {
             ps.setString(1, reference);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-             if(rs.getInt("count(*)")==0) {
+             if(rs.getInt("count")==0) {
             	 return true;
              }
             }
@@ -152,7 +152,7 @@ public class MachineService implements IDao<Machine> {
             ps.setInt(2, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-             if(rs.getInt("count(*)")==0) {
+             if(rs.getInt("count")==0) {
             	 return true;
              }
             }
@@ -206,7 +206,7 @@ public class MachineService implements IDao<Machine> {
             PreparedStatement pr =Connexion.getInstane().getConnection().prepareStatement(req);
             ResultSet rs = pr.executeQuery();
             while (rs.next()) {
-            	machines.put(rs.getString("libelle"), rs.getInt("count(*)"));
+            	machines.put(rs.getString("libelle"), rs.getInt("count"));
             }
 
         } catch (SQLException e) {
@@ -218,11 +218,11 @@ public class MachineService implements IDao<Machine> {
     	Map<String,Integer> machines = new HashMap<String,Integer>();
     	MarqueService ms = new MarqueService();
         try {
-            String req = "select libelle,count(*) from machine a, marque b where a.idMarque=b.id group by idMarque ";
+            String req = "select b.libelle,count(*) from machine a, marque b where a.idMarque=b.id group by b.libelle ";
             PreparedStatement pr =Connexion.getInstane().getConnection().prepareStatement(req);
             ResultSet rs = pr.executeQuery();
             while (rs.next()) {
-            	machines.put(rs.getString("libelle"), rs.getInt("count(*)"));
+            	machines.put(rs.getString("libelle"), rs.getInt("count"));
             }
 
         } catch (SQLException e) {
@@ -240,7 +240,7 @@ public class MachineService implements IDao<Machine> {
             pr.setInt(1, id);
             ResultSet rs = pr.executeQuery();
             while (rs.next()) {
-            	machines.put(rs.getInt("MONTH(a.dateAchat)"), rs.getInt("count(*)"));
+            	machines.put(rs.getInt("MONTH(a.dateAchat)"), rs.getInt("count"));
             }
 
         } catch (SQLException e) {

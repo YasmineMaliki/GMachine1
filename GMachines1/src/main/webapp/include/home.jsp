@@ -10,7 +10,7 @@
               <div class="col-lg-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Bar chart</h4>
+                    <h4 class="card-title">Le Nombre de Machine achetées par Marque</h4>
                     <canvas id="barChart" style="height: 230px;"></canvas>
                   </div>
                 </div>
@@ -18,7 +18,7 @@
               <div class="col-lg-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Pie chart</h4>
+                    <h4 class="card-title">Les Marques les plus achetées</h4>
                     <canvas id="pieChart" style="height: 250px;"></canvas>
                   </div>
                 </div>

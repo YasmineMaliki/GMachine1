@@ -12,7 +12,7 @@ public class UserService implements IDao<User> {
 	MarqueService ms = new MarqueService();
     @Override
     public boolean create(User o) {
-        String sql = "insert into users values (null, ?, ?, ?,?,?)";
+        String sql = "insert into users(nom,email,mdp,sexe,superAdmin) values ( ?, ?, ?,?,?)";
         try {
             PreparedStatement ps = Connexion.getInstane().getConnection().prepareStatement(sql);
             ps.setString(1, o.getNom());
@@ -147,7 +147,7 @@ public class UserService implements IDao<User> {
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-             if(rs.getInt("count(*)")==0) {
+             if(rs.getInt("count")==0) {
             	 return true;
              }
             }
@@ -164,7 +164,7 @@ public class UserService implements IDao<User> {
             ps.setInt(2, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-             if(rs.getInt("count(*)")==0) {
+             if(rs.getInt("count")==0) {
             	 return true;
              }
             }
